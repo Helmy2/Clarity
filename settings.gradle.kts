@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Clarity"
 include(":app")
+include(":core-ui")
+include(":lint-rules")
