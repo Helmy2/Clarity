@@ -9,8 +9,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.clarity.core.ui.ClarityCard
-import com.example.clarity.core.ui.ClarityTheme
+import com.example.clarity.core.ui.components.ClarityCard
+import com.example.clarity.core.ui.theme.ClarityTheme
 
 @Composable
 fun TaskItem(

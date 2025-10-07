@@ -1,5 +1,4 @@
-
-package com.example.clarity.core.ui
+package com.example.clarity.core.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
@@ -38,7 +37,7 @@ private val DarkColors = ClarityColors(
     onSurfaceVariant = White.copy(alpha = 0.5f)
 )
 
-private val LocalClarityColors = staticCompositionLocalOf { LightColors }
+internal val LocalClarityColors = staticCompositionLocalOf { LightColors }
 
 @Composable
 fun ClarityTheme(

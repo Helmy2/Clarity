@@ -1,4 +1,4 @@
-package com.example.clarity.core.ui
+package com.example.clarity.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

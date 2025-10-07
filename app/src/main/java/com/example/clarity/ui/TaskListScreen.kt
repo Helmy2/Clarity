@@ -8,12 +8,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.clarity.core.ui.ClarityButton
-import com.example.clarity.core.ui.ClarityTheme
-import com.example.clarity.core.ui.ClarityTopAppBar
+import com.example.clarity.core.ui.components.ClarityButton
+import com.example.clarity.core.ui.theme.ClarityTheme
+import com.example.clarity.core.ui.components.ClarityTopAppBar
 import androidx.compose.material3.Text
-import com.example.clarity.core.ui.ClarityIcons
-import com.example.clarity.core.ui.ClarityScaffold
+import com.example.clarity.core.ui.components.ClarityIcons
+import com.example.clarity.core.ui.components.ClarityScaffold
 import com.example.clarity.domain.model.Task
 
 @Composable

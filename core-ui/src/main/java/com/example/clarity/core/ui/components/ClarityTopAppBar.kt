@@ -1,4 +1,4 @@
-package com.example.clarity.core.ui
+package com.example.clarity.core.ui.components
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.clarity.core.ui.theme.ClarityTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,5 +1,4 @@
-
-package com.example.clarity.core.ui
+package com.example.clarity.core.ui.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import com.example.clarity.core.ui.theme.ClarityTheme
 
 @Composable
 fun ClarityButton(

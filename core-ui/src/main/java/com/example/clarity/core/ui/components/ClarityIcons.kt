@@ -1,5 +1,4 @@
-
-package com.example.clarity.core.ui
+package com.example.clarity.core.ui.components
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -13,6 +12,7 @@ import androidx.compose.ui.graphics.StrokeJoin.Companion.Miter
 import androidx.compose.ui.graphics.vector.ImageVector.Builder
 import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
+import com.example.clarity.core.ui.theme.ClarityTheme
 
 object ClarityIcons {
     @Composable
