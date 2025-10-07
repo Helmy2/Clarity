@@ -13,27 +13,25 @@ import org.jetbrains.uast.UCallExpression
 
 class WrongComponentDetector : Detector(), Detector.UastScanner {
 
-    // No changes needed here
     override fun getApplicableUastTypes() = listOf(UCallExpression::class.java)
 
     override fun createUastHandler(context: JavaContext): UElementHandler {
         return object : UElementHandler() {
             override fun visitCallExpression(node: UCallExpression) {
-                // We will check for the fully qualified name of the function
                 val qualifiedName = node.resolve()?.let {
                     it.containingClass?.qualifiedName + "." + it.name
                 }
 
-                if (qualifiedName == "androidx.compose.material3.ButtonKt.Button") {
-                    // This is where we build the quick fix
+                replacements[qualifiedName]?.let { replacement ->
                     val fix = LintFix.create()
-                        .replace().text("Button").with("com.example.clarity.core.ui.ClarityButton").shortenNames()
+                        .replace().text(node.methodIdentifier?.name)
+                        .with("com.example.clarity.core.ui.components.$replacement").shortenNames()
                         .range(context.getLocation(node.methodIdentifier ?: node)).build()
 
                     context.report(
                         issue = ISSUE,
                         location = context.getLocation(node),
-                        message = "Use ClarityButton from the :core-ui module instead.",
+                        message = "Use $replacement from the :core-ui module instead.",
                         quickfixData = fix.autoFix()
                     )
                 }
@@ -44,16 +42,26 @@ class WrongComponentDetector : Detector(), Detector.UastScanner {
     companion object {
         @JvmField
         val ISSUE: Issue = Issue.create(
-            // No changes needed in the Issue definition
             id = "WrongComponentUsage",
             briefDescription = "Incorrect component used.",
-            explanation = "Use `ClarityButton` from the `:core-ui` module instead of `androidx.compose.material3.Button`.",
+            explanation = "Use components from the `:core-ui` module instead of Material Design components.",
             category = Category.CORRECTNESS,
             priority = 6,
             severity = Severity.ERROR,
             implementation = Implementation(
                 WrongComponentDetector::class.java, Scope.JAVA_FILE_SCOPE
             )
+        )
+
+        private val replacements = mapOf(
+            "androidx.compose.material3.ButtonKt.Button" to "ClarityButton",
+            "androidx.compose.material3.CardKt.Card" to "ClarityCard",
+            "androidx.compose.material3.ScaffoldKt.Scaffold" to "ClarityScaffold",
+            "androidx.compose.material3.TextFieldKt.TextField" to "ClarityTextField",
+            "androidx.compose.material3.TopAppBarKt.TopAppBar" to "ClarityTopAppBar",
+            "androidx.compose.material3.TextKt.Text" to "ClarityText",
+            "androidx.compose.material3.CheckboxKt.Checkbox" to "ClarityCheckbox",
+            "androidx.compose.material3.IconKt.Icon" to "ClarityIcon",
         )
     }
 }

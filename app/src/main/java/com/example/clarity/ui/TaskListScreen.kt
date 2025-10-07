@@ -3,17 +3,19 @@ package com.example.clarity.ui
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.clarity.core.ui.components.ClarityButton
-import com.example.clarity.core.ui.theme.ClarityTheme
-import com.example.clarity.core.ui.components.ClarityTopAppBar
-import androidx.compose.material3.Text
-import com.example.clarity.core.ui.components.ClarityIcons
+import com.example.clarity.core.ui.components.ClarityIcon
 import com.example.clarity.core.ui.components.ClarityScaffold
+import com.example.clarity.core.ui.components.ClarityText
+import com.example.clarity.core.ui.components.ClarityTopAppBar
+import com.example.clarity.core.ui.theme.ClarityTheme
 import com.example.clarity.domain.model.Task
 
 @Composable
@@ -25,10 +27,13 @@ fun TaskListScreen(
 ) {
     ClarityScaffold(
         modifier = modifier,
-        topBar = { ClarityTopAppBar(title = { Text("Tasks") }) },
+        topBar = { ClarityTopAppBar(title = { ClarityText("Tasks") }) },
         floatingActionButton = {
             ClarityButton(onClick = { navController.navigate("add_task") }) {
-                ClarityIcons.Add(contentDescription = "Add Task")
+                ClarityIcon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Add Task"
+                )
             }
         }
     ) { innerPadding ->

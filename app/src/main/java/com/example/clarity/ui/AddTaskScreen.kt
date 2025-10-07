@@ -3,7 +3,6 @@ package com.example.clarity.ui
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -13,9 +12,10 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.clarity.core.ui.components.ClarityButton
 import com.example.clarity.core.ui.components.ClarityScaffold
+import com.example.clarity.core.ui.components.ClarityText
 import com.example.clarity.core.ui.components.ClarityTextField
-import com.example.clarity.core.ui.theme.ClarityTheme
 import com.example.clarity.core.ui.components.ClarityTopAppBar
+import com.example.clarity.core.ui.theme.ClarityTheme
 
 @Composable
 fun AddTaskScreen(
@@ -27,7 +27,7 @@ fun AddTaskScreen(
 
     ClarityScaffold(
         modifier = modifier,
-        topBar = { ClarityTopAppBar(title = { Text("Add Task") }) }
+        topBar = { ClarityTopAppBar(title = { ClarityText("Add Task") }) }
     ) { innerPadding ->
         Column(
             modifier = Modifier.padding(innerPadding).padding(ClarityTheme.spacing.medium)
@@ -45,8 +45,9 @@ fun AddTaskScreen(
                 },
                 modifier = Modifier.fillMaxWidth().padding(top = ClarityTheme.spacing.medium)
             ) {
-                Text("Save Task")
+                ClarityText("Save Task")
             }
+
         }
     }
 }
