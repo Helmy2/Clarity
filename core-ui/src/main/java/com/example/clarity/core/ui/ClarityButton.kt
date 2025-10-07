@@ -1,15 +1,19 @@
+
 package com.example.clarity.core.ui
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 
 @Composable
 fun ClarityButton(
@@ -18,28 +22,38 @@ fun ClarityButton(
     enabled: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    Button(
-        onClick = onClick,
-        modifier = modifier,
-        enabled = enabled,
-        shape = MaterialTheme.shapes.medium,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = MaterialTheme.colorScheme.onPrimary,
-            disabledContainerColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f),
-            disabledContentColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
-        )
+    val backgroundColor = if (enabled) ClarityTheme.colors.primary else ClarityTheme.colors.primary.copy(alpha = 0.5f)
+    val contentColor = if (enabled) ClarityTheme.colors.onPrimary else ClarityTheme.colors.onPrimary.copy(alpha = 0.5f)
+
+    Surface(
+        modifier = modifier
+            .clip(ClarityTheme.shapes.medium)
+            .clickable(enabled = enabled, onClick = onClick),
+        color = backgroundColor,
+        contentColor = contentColor
     ) {
-        content()
+        Row(
+            modifier = Modifier.padding(
+                horizontal = ClarityTheme.spacing.medium,
+                vertical = ClarityTheme.spacing.small
+            ),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            CompositionLocalProvider(LocalTextStyle provides ClarityTheme.typography.button) {
+                content()
+            }
+        }
     }
 }
+
 
 @Preview(name = "Light Mode")
 @Composable
 fun ClarityButtonLightPreview() {
     ClarityTheme {
-        Surface(color = MaterialTheme.colorScheme.background) {
-            ClarityButton(onClick = {}, modifier = Modifier.padding(16.dp)) {
+        Surface(color = ClarityTheme.colors.background) {
+            ClarityButton(onClick = {}, modifier = Modifier.padding(ClarityTheme.spacing.medium)) {
                 Text("ClarityButton")
             }
         }
@@ -50,8 +64,8 @@ fun ClarityButtonLightPreview() {
 @Composable
 fun ClarityButtonDarkPreview() {
     ClarityTheme(darkTheme = true) {
-        Surface(color = MaterialTheme.colorScheme.background) {
-            ClarityButton(onClick = {}, modifier = Modifier.padding(16.dp)) {
+        Surface(color = ClarityTheme.colors.background) {
+            ClarityButton(onClick = {}, modifier = Modifier.padding(ClarityTheme.spacing.medium)) {
                 Text("ClarityButton")
             }
         }
@@ -62,8 +76,8 @@ fun ClarityButtonDarkPreview() {
 @Composable
 fun ClarityButtonDisabledPreview() {
     ClarityTheme {
-        Surface(color = MaterialTheme.colorScheme.background) {
-            ClarityButton(enabled = false, onClick = {}, modifier = Modifier.padding(16.dp)) {
+        Surface(color = ClarityTheme.colors.background) {
+            ClarityButton(enabled = false, onClick = {}, modifier = Modifier.padding(ClarityTheme.spacing.medium)) {
                 Text("ClarityButton")
             }
         }

@@ -1,20 +1,21 @@
+
 package com.example.clarity.core.ui
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ClarityTextField(
     value: String,
@@ -22,28 +23,32 @@ fun ClarityTextField(
     modifier: Modifier = Modifier,
     placeholder: String = ""
 ) {
-    val interactionSource = remember { MutableInteractionSource() }
-
-    BasicTextField(
-        value = value,
-        onValueChange = onValueChange,
-        modifier = modifier,
-        interactionSource = interactionSource,
-        textStyle = MaterialTheme.typography.bodyLarge.copy(
-            color = MaterialTheme.colorScheme.onSurface
-        )
-    ) {
-        TextFieldDefaults.DecorationBox(
+    Column(modifier = modifier) {
+        BasicTextField(
             value = value,
-            innerTextField = it,
-            enabled = true,
-            singleLine = true,
-            visualTransformation = androidx.compose.ui.text.input.VisualTransformation.None,
-            interactionSource = interactionSource,
-            placeholder = { Text(placeholder) },
-            contentPadding = TextFieldDefaults.contentPaddingWithoutLabel(
-                start = 0.dp, end = 0.dp
-            )
+            onValueChange = onValueChange,
+            modifier = Modifier.fillMaxWidth(),
+            textStyle = ClarityTheme.typography.body.copy(
+                color = ClarityTheme.colors.onSurface
+            ),
+            cursorBrush = SolidColor(ClarityTheme.colors.primary)
+        ) { innerTextField ->
+            Box {
+                if (value.isEmpty()) {
+                    Text(
+                        text = placeholder,
+                        style = ClarityTheme.typography.body,
+                        color = ClarityTheme.colors.onSurfaceVariant
+                    )
+                }
+                innerTextField()
+            }
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(1.dp)
+                .background(ClarityTheme.colors.onSurface.copy(alpha = 0.5f))
         )
     }
 }
@@ -52,7 +57,7 @@ fun ClarityTextField(
 @Composable
 fun ClarityTextFieldLightPreview() {
     ClarityTheme {
-        Surface(color = MaterialTheme.colorScheme.background) {
+        Surface(color = ClarityTheme.colors.background) {
             ClarityTextField(
                 value = "",
                 onValueChange = {},
@@ -67,7 +72,7 @@ fun ClarityTextFieldLightPreview() {
 @Composable
 fun ClarityTextFieldDarkPreview() {
     ClarityTheme(darkTheme = true) {
-        Surface(color = MaterialTheme.colorScheme.background) {
+        Surface(color = ClarityTheme.colors.background) {
             ClarityTextField(
                 value = "",
                 onValueChange = {},
@@ -82,7 +87,7 @@ fun ClarityTextFieldDarkPreview() {
 @Composable
 fun ClarityTextFieldWithValuePreview() {
     ClarityTheme {
-        Surface(color = MaterialTheme.colorScheme.background) {
+        Surface(color = ClarityTheme.colors.background) {
             ClarityTextField(
                 value = "Hello, World!",
                 onValueChange = {},

@@ -3,33 +3,34 @@ package com.example.clarity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.clarity.core.ui.ClarityButton
+import com.example.clarity.core.ui.ClarityScaffold
 import com.example.clarity.core.ui.ClarityTextField
 import com.example.clarity.core.ui.ClarityTheme
 import com.example.clarity.core.ui.ClarityTopAppBar
 
 @Composable
-fun AddTaskScreen(modifier: Modifier = Modifier) {
+fun AddTaskScreen(
+    navController: NavController,
+    onAddTask: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     val (text, setText) = remember { mutableStateOf("") }
 
-    Scaffold(
+    ClarityScaffold(
         modifier = modifier,
-        topBar = {
-            ClarityTopAppBar(title = { Text("Add Task") })
-        }
+        topBar = { ClarityTopAppBar(title = { Text("Add Task") }) }
     ) { innerPadding ->
         Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .padding(16.dp)
+            modifier = Modifier.padding(innerPadding).padding(ClarityTheme.spacing.medium)
         ) {
             ClarityTextField(
                 value = text,
@@ -38,8 +39,11 @@ fun AddTaskScreen(modifier: Modifier = Modifier) {
                 modifier = Modifier.fillMaxWidth()
             )
             ClarityButton(
-                onClick = { /* TODO */ },
-                modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
+                onClick = {
+                    onAddTask(text)
+                    navController.popBackStack()
+                },
+                modifier = Modifier.fillMaxWidth().padding(top = ClarityTheme.spacing.medium)
             ) {
                 Text("Save Task")
             }
@@ -51,7 +55,7 @@ fun AddTaskScreen(modifier: Modifier = Modifier) {
 @Composable
 fun AddTaskScreenLightPreview() {
     ClarityTheme {
-        AddTaskScreen()
+        AddTaskScreen(navController = rememberNavController(), onAddTask = { })
     }
 }
 
@@ -59,6 +63,6 @@ fun AddTaskScreenLightPreview() {
 @Composable
 fun AddTaskScreenDarkPreview() {
     ClarityTheme(darkTheme = true) {
-        AddTaskScreen()
+        AddTaskScreen(navController = rememberNavController(), onAddTask = { })
     }
 }

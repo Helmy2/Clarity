@@ -2,11 +2,12 @@ package com.example.clarity.core.ui
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ProvideTextStyle
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
@@ -19,8 +20,13 @@ fun ClarityTopAppBar(
 ) {
     TopAppBar(
         modifier = modifier,
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = ClarityTheme.colors.surface,
+            titleContentColor = ClarityTheme.colors.onSurface,
+            actionIconContentColor = ClarityTheme.colors.onSurface,
+        ),
         title = {
-            ProvideTextStyle(value = MaterialTheme.typography.titleLarge) {
+            CompositionLocalProvider(LocalTextStyle provides ClarityTheme.typography.title) {
                 title()
             }
         },
