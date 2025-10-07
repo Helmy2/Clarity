@@ -1,4 +1,4 @@
-package com.example.clarity
+package com.example.clarity.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

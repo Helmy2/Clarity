@@ -1,4 +1,4 @@
-package com.example.clarity
+package com.example.clarity.ui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,6 +14,7 @@ import com.example.clarity.core.ui.ClarityTopAppBar
 import androidx.compose.material3.Text
 import com.example.clarity.core.ui.ClarityIcons
 import com.example.clarity.core.ui.ClarityScaffold
+import com.example.clarity.domain.model.Task
 
 @Composable
 fun TaskListScreen(
