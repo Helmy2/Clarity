@@ -1,28 +1,25 @@
 package com.example.clarity.data.repository
 
+import com.example.clarity.data.local.TaskDao
 import com.example.clarity.domain.model.Task
 import com.example.clarity.domain.repository.TaskRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 
-class TaskRepositoryImpl : TaskRepository {
-
-    private val tasks = MutableStateFlow<List<Task>>(emptyList())
-    private var nextTaskId = 1
+class TaskRepositoryImpl(private val dao: TaskDao) : TaskRepository {
 
     override fun getTasks(): Flow<List<Task>> {
-        return tasks
+        return dao.getTasks()
     }
 
     override suspend fun getTaskById(id: Int): Task? {
-        return tasks.value.find { it.id == id }
+        return dao.getTaskById(id)
     }
 
     override suspend fun insertTask(task: Task) {
-        tasks.value = tasks.value + task.copy(id = nextTaskId++)
+        dao.insertTask(task)
     }
 
     override suspend fun deleteTask(task: Task) {
-        tasks.value = tasks.value - task
+        dao.deleteTask(task)
     }
 }

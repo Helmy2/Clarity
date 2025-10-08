@@ -1,3 +1,12 @@
 package com.example.clarity.domain.model
 
-data class Task(val id: Int, val title: String, val isCompleted: Boolean)
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
+data class Task(
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
+    val title: String,
+    val isCompleted: Boolean
+)

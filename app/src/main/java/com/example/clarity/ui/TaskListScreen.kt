@@ -23,6 +23,7 @@ fun TaskListScreen(
     navController: NavController,
     tasks: List<Task>,
     onTaskCompletedChange: (Task, Boolean) -> Unit,
+    onDeleteTask: (Task) -> Unit,
     modifier: Modifier = Modifier
 ) {
     ClarityScaffold(
@@ -42,11 +43,12 @@ fun TaskListScreen(
                 .padding(innerPadding)
                 .padding(horizontal = ClarityTheme.spacing.medium)
         ) {
-            items(tasks) { task ->
+            items(tasks, key = { it.id }) { task ->
                 TaskItem(
                     title = task.title,
                     isCompleted = task.isCompleted,
                     onCompletedChange = { onTaskCompletedChange(task, it) },
+                    onDelete = { onDeleteTask(task) },
                     modifier = Modifier.padding(vertical = ClarityTheme.spacing.small)
                 )
             }
@@ -58,7 +60,12 @@ fun TaskListScreen(
 @Composable
 fun TaskListScreenLightPreview() {
     ClarityTheme {
-        TaskListScreen(navController = rememberNavController(), tasks = emptyList(), onTaskCompletedChange = { _, _ -> })
+        TaskListScreen(
+            navController = rememberNavController(),
+            tasks = emptyList(),
+            onTaskCompletedChange = { _, _ -> },
+            onDeleteTask = {}
+        )
     }
 }
 
@@ -66,6 +73,11 @@ fun TaskListScreenLightPreview() {
 @Composable
 fun TaskListScreenDarkPreview() {
     ClarityTheme(darkTheme = true) {
-        TaskListScreen(navController = rememberNavController(), tasks = emptyList(), onTaskCompletedChange = { _, _ -> })
+        TaskListScreen(
+            navController = rememberNavController(),
+            tasks = emptyList(),
+            onTaskCompletedChange = { _, _ -> },
+            onDeleteTask = {}
+        )
     }
 }

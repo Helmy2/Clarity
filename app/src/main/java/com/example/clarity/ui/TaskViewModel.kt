@@ -40,4 +40,10 @@ class TaskViewModel(
             taskUseCases.setTaskCompleted(task, isCompleted)
         }
     }
+
+    fun deleteTask(task: Task) {
+        viewModelScope.launch {
+            taskUseCases.deleteTask(task)
+        }
+    }
 }

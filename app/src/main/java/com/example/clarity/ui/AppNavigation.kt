@@ -21,6 +21,9 @@ fun AppNavigation() {
                 tasks = tasks,
                 onTaskCompletedChange = { task, isCompleted ->
                     viewModel.setTaskCompleted(task, isCompleted)
+                },
+                onDeleteTask = { task ->
+                    viewModel.deleteTask(task)
                 }
             )
         }
